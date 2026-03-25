@@ -21,3 +21,16 @@ def Z_Standardization(df):
 
     return X_scaled, y, mu, sigma
 
+
+# For adding +b in the equation
+def bias_column(X):
+    ones_column = np.ones((X.shape[0], 1))
+
+    X__with_bias = np.hstack((ones_column, X))
+
+    return X__with_bias
+
+def initialize_weights(n_features):
+    w = np.zeros(n_features)
+
+    return w

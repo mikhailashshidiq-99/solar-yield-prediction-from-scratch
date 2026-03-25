@@ -34,8 +34,7 @@ def fetch_and_encode_nsrdb_data(lat, lon, year):
     df = df.drop(columns=['Year', 'Month', 'Day', 'Hour', 'Minute', 'datetime', 'day_of_year'])
 
     df = df.rename(columns={
-        'air_temperature': 'temperature',
-        'ghi': 'expected_power_output'
+        'GHI': 'expected_power_output'
     })
 
     print("API data successfully fetched and temporally encoded.")
