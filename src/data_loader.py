@@ -5,7 +5,7 @@ from src.secrets import NREL_API_KEY, NREL_EMAIL
 def fetch_and_encode_nsrdb_data(lat, lon, year):
     print(f"Fetching NSRDB data for Lat: {lat}, Lon: {lon}, Year: {year}...")
 
-    attributes = "ghi,dhi,dni,wind_speed,air_temperature,relative_humidity"
+    attributes = "ghi,dhi,dni,wind_speed,air_temperature,solar_zenith_angle"
 
     url = (
         f"https://developer.nrel.gov/api/nsrdb/v2/solar/nsrdb-GOES-aggregated-v4-0-0-download.csv?"
