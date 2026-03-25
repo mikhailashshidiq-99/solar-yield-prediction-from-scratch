@@ -34,3 +34,14 @@ def initialize_weights(n_features):
     w = np.zeros(n_features)
 
     return w
+
+def time_series_split(X, y, test_ratio = 0.2):
+    split_index = int(X.shape[0] * (1 - test_ratio))
+
+    X_train = X[:split_index]
+    X_test = X[split_index:]
+
+    y_train = y[:split_index]
+    y_test = y[split_index:]
+
+    return X_train, X_test, y_train, y_test
