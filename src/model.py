@@ -24,7 +24,7 @@ class CustomLinearRegression:
         self.weights = np.zeros(n_features)
         self.loss_history = []
 
-        for i in range(slef.epochs):
+        for i in range(self.epochs):
             gradient = self._compute_gradient(X, y)
             self.weights -= (self.learning_rate * gradient)
             self.loss_history.append(self._compute_mse(X, y))
