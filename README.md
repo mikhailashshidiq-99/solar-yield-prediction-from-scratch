@@ -3,7 +3,7 @@
 A pure mathematics implementation of a Linear Regression model built entirely from scratch using only NumPy. This project constrains the use of standard libraries like Scikit-Learn to demonstrate a fundamental understanding of Gradient Descent, Linear Algebra, and Machine Learning architecture.
 
 ## The Results
-The custom engine achieved an **$R^2$ score of 75.31%** on newly provided testing data, successfully proving its ability to generalize and predict complex solar energy curves based purely on raw meteorological conditions.
+The custom engine achieved an **$R^2$ score of 80.93%** on newly provided testing data, successfully proving its ability to generalize and predict complex solar energy curves based purely on raw meteorological conditions.
 
 ![Final Evaluation Dashboard](images/final_dashboard.png)
 
