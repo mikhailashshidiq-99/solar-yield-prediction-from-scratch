@@ -5,7 +5,7 @@ from src.secrets import NREL_API_KEY, NREL_EMAIL
 def fetch_and_encode_nsrdb_data(lat, lon, year):
     print(f"Fetching NSRDB data for Lat: {lat}, Lon: {lon}, Year: {year}...")
 
-    attributes = "ghi,dhi,dni,wind_speed,air_temperature,relative_humidity"
+    attributes = "ghi,dhi,dni,wind_speed,air_temperature,solar_zenith_angle"
 
     url = (
         f"https://developer.nrel.gov/api/nsrdb/v2/solar/nsrdb-GOES-aggregated-v4-0-0-download.csv?"
@@ -34,8 +34,29 @@ def fetch_and_encode_nsrdb_data(lat, lon, year):
     df = df.drop(columns=['Year', 'Month', 'Day', 'Hour', 'Minute', 'datetime', 'day_of_year'])
 
     df = df.rename(columns={
-        'GHI': 'expected_power_output'
+        'ghi': 'GHI',
+        'dni': 'DNI',
+        'dhi': 'DHI',
+        'temp': 'Temperature',
+        'wind_spd': 'Wind Speed',
+        'solar_zenith_angle': 'Solar Zenith Angle'
     })
-
-    print("API data successfully fetched and temporally encoded.")
+    
     return df
+
+def load_data_from_csv(file_path="../data/phoenix_2024.csv"):
+    print(f"Loading local dataset from {file_path}...")
+    df = pd.read_csv(file_path, skiprows=2)
+    features = ['GHI', 'DNI', 'DHI', 'Temperature', 'Wind Speed', 'Solar Zenith Angle']
+
+    return df[features]
+
+
+def get_nrel_data(source="csv", file_path="../data/phoenix_2024.csv", lat=33.45, lon=-112.04, year=2022):
+    
+    if source == "csv":
+        return load_data_from_csv(file_path)
+    elif source == "api":
+        return fetch_and_encode_nsrdb_data(lat=lat, lon=lon, year=year)
+    else:
+        raise ValueError("Invalid source. Choose 'csv' or 'api'.")
