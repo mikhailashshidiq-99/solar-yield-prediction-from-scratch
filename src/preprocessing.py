@@ -4,11 +4,10 @@ import numpy as np
 # Z = (X - mu)/sigma
 
 def Z_Standardization(df):
-    y_df = df['expected_power_output']
-    X_df = df.drop(columns=['expected_power_output'])
+    y = df['GHI'].values
 
-    y = y_df.to_numpy()
-    X = X_df.to_numpy()
+    features = ['DNI', 'DHI', 'Temperature', 'Wind Speed', 'Solar Zenith Angle']
+    X = df[features].values
 
     mu = np.mean(X, axis=0)
     sigma = np.std(X, axis=0)
