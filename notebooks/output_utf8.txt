@@ -1,0 +1,66 @@
+﻿============================================================
+  SOLAR YIELD PREDICTION ù LINEAR vs NON-LINEAR COMPARISON
+============================================================
+Loading local dataset from data/phoenix_2024.csv...
+
+Dataset shape: (8760, 6)
+Features: ['GHI', 'DNI', 'DHI', 'Temperature', 'Wind Speed', 'Solar Zenith Angle']
+
+============================================================
+  PIPELINE 1: LINEAR REGRESSION (Baseline)
+============================================================
+Training samples: 7008
+Test samples:     1752
+Features (with bias): 6
+Epoch    0 | MSE Loss: 172588.4925
+Epoch  100 | MSE Loss: 13932.6028
+Epoch  200 | MSE Loss: 11487.9539
+Epoch  300 | MSE Loss: 11130.5285
+Epoch  400 | MSE Loss: 11007.6570
+Epoch  500 | MSE Loss: 10940.3175
+Epoch  600 | MSE Loss: 10897.6496
+Epoch  700 | MSE Loss: 10869.7202
+Epoch  800 | MSE Loss: 10851.3164
+Epoch  900 | MSE Loss: 10839.1732
+
+>>> LINEAR MODEL R▓ = 0.7628 (76.28%)
+
+============================================================
+  PIPELINE 2: NON-LINEAR REGRESSION (cos(SZA) + Poly Degree 2)
+============================================================
+Training samples: 7008
+Test samples:     1752
+Features (with bias): 36
+Epoch    0 | MSE Loss: 174989.8772
+Epoch  100 | MSE Loss: 17023.0727
+Epoch  200 | MSE Loss: 7503.3404
+Epoch  300 | MSE Loss: 3713.1730
+Epoch  400 | MSE Loss: 2024.2628
+Epoch  500 | MSE Loss: 1232.6262
+Epoch  600 | MSE Loss: 839.4123
+Epoch  700 | MSE Loss: 628.6178
+Epoch  800 | MSE Loss: 504.8597
+Epoch  900 | MSE Loss: 425.1234
+Epoch 1000 | MSE Loss: 369.4018
+Epoch 1100 | MSE Loss: 327.9535
+Epoch 1200 | MSE Loss: 295.7282
+Epoch 1300 | MSE Loss: 269.8983
+Epoch 1400 | MSE Loss: 248.7453
+Epoch 1500 | MSE Loss: 231.1429
+Epoch 1600 | MSE Loss: 216.3062
+Epoch 1700 | MSE Loss: 203.6637
+Epoch 1800 | MSE Loss: 192.7856
+Epoch 1900 | MSE Loss: 183.3422
+
+>>> NON-LINEAR MODEL R▓ = 0.9953 (99.53%)
+
+============================================================
+  FINAL RESULTS COMPARISON
+============================================================
+  Linear Regression R▓:      0.7628  (76.28%)
+  Non-Linear Regression R▓:  0.9953  (99.53%)
+  Improvement:               +23.25 percentage points
+============================================================
+
+Comparison chart saved to: C:\Users\Nabil Abrian Aryo P\mengkoding\matkulai\solar-yield-prediction-from-scratch\notebooks\..\images\linear_vs_nonlinear_comparison.png
+Done!
