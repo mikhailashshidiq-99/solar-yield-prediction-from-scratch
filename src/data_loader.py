@@ -41,13 +41,31 @@ def fetch_and_encode_nsrdb_data(lat, lon, year):
         'wind_spd': 'Wind Speed',
         'solar_zenith_angle': 'Solar Zenith Angle'
     })
-    
-    return df
+
+    features = ['GHI', 'DNI', 'DHI', 'Temperature', 'Wind Speed', 'Solar Zenith Angle']
+
+    missing = [f for f in features if f not in df.columns]
+    if missing:
+        print(f"Error: Missing features: {missing}")
+        return df
+
+    df = df.ffill()
+    df = df.bfill()
+
+    return df[features]
 
 def load_data_from_csv(file_path="../data/phoenix_2024.csv"):
     print(f"Loading local dataset from {file_path}...")
     df = pd.read_csv(file_path, skiprows=2)
     features = ['GHI', 'DNI', 'DHI', 'Temperature', 'Wind Speed', 'Solar Zenith Angle']
+
+    missing = [f for f in features if f not in df.columns]
+    if missing:
+        print(f"Error: Missing features: {missing}")
+        return df
+
+    df = df.ffill()
+    df = df.bfill()
 
     return df[features]
 
