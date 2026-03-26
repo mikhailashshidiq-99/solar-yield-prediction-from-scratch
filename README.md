@@ -1,6 +1,6 @@
 # Solar Yield Prediction: Pure NumPy Machine Learning Engine
 
-A pure mathematics implementation of a Linear Regression model built entirely from scratch using only NumPy. This project constrains the use of standard libraries like Scikit-Learn to demonstrate a fundamental understanding of Gradient Descent, Linear Algebra, and Machine Learning architecture.
+A pure mathematics implementation of a Linear Regression model built entirely from scratch using only NumPy. This project constrains the use of standard libraries like Scikit-Learn to demonstrate a fundamental understanding of Gradient Descent, Linear Algebra, and the foundational architecture of Machine Learning.
 
 ## The Results
 The custom engine achieved an **$R^2$ score of 80.93%** on newly provided testing data, successfully proving its ability to generalize and predict complex solar energy curves based purely on raw meteorological conditions.
