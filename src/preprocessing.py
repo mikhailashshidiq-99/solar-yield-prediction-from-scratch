@@ -84,3 +84,23 @@ def preprocess_nonlinear(df, poly_degree=2):
     X_poly = poly.transform(X_scaled)
 
     return X_poly, y, mu, sigma
+
+def manual_time_series_split(X, n_splits=5):
+    n_samples = len(X)
+
+    fold_size = n_samples // (n_splits + 1)
+
+    splits = []
+
+    for i in range(1, n_splits + 1):
+        train_end = i * fold_size
+        test_end = train_end + fold_size
+
+        if i == n_splits:
+            test_end = n_samples
+
+        train_indices = np.arange(0, train_end)
+        test_indices = np.arange(train_end, test_end)
+
+    splits.append((train_indices, test_indices))
+    return splits
