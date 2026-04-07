@@ -21,26 +21,26 @@ class SolarZenithTransformer:
         """
         self.sza_column_index = sza_column_index
 
-    def transform(self, X):
+    def transform(self, feature_matrix):
         """
         Adds cos(SZA) and sin(SZA) columns to the feature matrix.
 
         Parameters
         ----------
-        X : np.ndarray of shape (n_samples, n_features)
+        feature_matrix : np.ndarray of shape (n_samples, n_features)
 
         Returns
         -------
-        X_transformed : np.ndarray of shape (n_samples, n_features + 2)
+        transformed_matrix : np.ndarray of shape (n_samples, n_features + 2)
         """
-        sza_radians = np.deg2rad(X[:, self.sza_column_index])
+        sza_radians = np.deg2rad(feature_matrix[:, self.sza_column_index])
 
         cos_sza = np.cos(sza_radians).reshape(-1, 1)
         sin_sza = np.sin(sza_radians).reshape(-1, 1)
 
-        X_transformed = np.hstack((X, cos_sza, sin_sza))
+        transformed_matrix = np.hstack((feature_matrix, cos_sza, sin_sza))
 
-        return X_transformed
+        return transformed_matrix
 
 
 class PolynomialFeatures:
@@ -64,29 +64,29 @@ class PolynomialFeatures:
         """
         self.degree = degree
 
-    def transform(self, X):
+    def transform(self, feature_matrix):
         """
         Generate polynomial features up to the specified degree.
 
         Parameters
         ----------
-        X : np.ndarray of shape (n_samples, n_features)
+        feature_matrix : np.ndarray of shape (n_samples, n_features)
 
         Returns
         -------
-        X_poly : np.ndarray
+        polynomial_matrix : np.ndarray
             Matrix with original + polynomial + interaction features.
         """
-        n_samples, n_features = X.shape
+        n_samples, n_features = feature_matrix.shape
 
         # Start with the original features
-        features_list = [X]
+        features_list = [feature_matrix]
 
         if self.degree >= 2:
             # Add squared terms and interaction terms (degree 2)
             for i in range(n_features):
                 for j in range(i, n_features):
-                    product = (X[:, i] * X[:, j]).reshape(-1, 1)
+                    product = (feature_matrix[:, i] * feature_matrix[:, j]).reshape(-1, 1)
                     features_list.append(product)
 
         if self.degree >= 3:
@@ -94,9 +94,9 @@ class PolynomialFeatures:
             for i in range(n_features):
                 for j in range(i, n_features):
                     for k in range(j, n_features):
-                        product = (X[:, i] * X[:, j] * X[:, k]).reshape(-1, 1)
+                        product = (feature_matrix[:, i] * feature_matrix[:, j] * feature_matrix[:, k]).reshape(-1, 1)
                         features_list.append(product)
 
-        X_poly = np.hstack(features_list)
+        polynomial_matrix = np.hstack(features_list)
 
-        return X_poly
+        return polynomial_matrix
