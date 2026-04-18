@@ -53,33 +53,19 @@ def time_series_split(X, y, test_ratio = 0.2):
 from src.feature_engineering import SolarZenithTransformer, PolynomialFeatures
 
 def preprocess_nonlinear(df, poly_degree=2):
-    """
-    Full preprocessing pipeline for the non-linear model:
-    1. Extract features & target
-    2. Add cos(SZA) and sin(SZA) — physics-informed features
-    3. Z-standardize all features
-    4. Generate polynomial + interaction terms
-    
-    Returns: X_poly, y, mu, sigma
-    """
     y = df['GHI'].values
 
     features = ['DNI', 'DHI', 'Temperature', 'Wind Speed', 'Solar Zenith Angle']
     X = df[features].values
 
-    # Step 1: Add cos(SZA) and sin(SZA)
-    # SZA is column index 4 in our feature list
     sza_transformer = SolarZenithTransformer(sza_column_index=4)
     X_with_trig = sza_transformer.transform(X)
-    # Now X has 7 columns: DNI, DHI, Temp, Wind, SZA, cos(SZA), sin(SZA)
 
-    # Step 2: Z-Standardize all features (including the new trig ones)
     mu = np.mean(X_with_trig, axis=0)
     sigma = np.std(X_with_trig, axis=0)
     sigma = np.where(sigma == 0, 1e-8, sigma)
     X_scaled = (X_with_trig - mu) / sigma
 
-    # Step 3: Generate polynomial features
     poly = PolynomialFeatures(degree=poly_degree)
     X_poly = poly.transform(X_scaled)
 
